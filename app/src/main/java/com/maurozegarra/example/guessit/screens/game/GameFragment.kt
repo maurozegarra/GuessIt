@@ -2,6 +2,7 @@ package com.maurozegarra.example.guessit.screens.game
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,7 @@ class GameFragment : Fragment() {
             viewModel.onSkip()
         }
 
+        /** Setting up LiveData observation relationship **/
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
         })
@@ -52,6 +54,11 @@ class GameFragment : Fragment() {
             binding.wordText.text = newWord
         })
 
+        viewModel.currentTime.observe(viewLifecycleOwner, Observer { newTime ->
+            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
+        })
+
+        // Sets up event listening to navigate the player when the game is finished
         viewModel.eventGameFinished.observe(viewLifecycleOwner, Observer { hasFinished ->
             if (hasFinished) {
                 val currentScore = viewModel.score.value ?: 0
