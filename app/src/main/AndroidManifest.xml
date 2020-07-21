@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maurozegarra.example.guessit">
 
+    <!-- Permission needed for haptic feedback -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="false"
@@ -10,7 +13,14 @@
         android:roundIcon="@mipmap/ic_guess_it_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <!-- Screen locked to landscape for easier play -->
+        <!-- configChanges attribute makes the following actions NOT cause a config change  -->
+        <!-- screenOrientation attribute sets the default animation-->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
